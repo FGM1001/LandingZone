@@ -75,7 +75,7 @@ variable "vnet_name"{
 
 variable "vnet_address_space"{
     type=string
-     description = "CIDR address space for the subnet"
+     description = "CIDR address space for the VNET"
      default = "10.10.0.0/16"
 }
 
