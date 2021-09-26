@@ -1,11 +1,6 @@
 # Required Variables fot VNET   
 
 # Global variables to use with the resources
-variable "resource_group_name"{
-    type = string
-    description = "The name of the resource group where create the resources."
-}
-
 variable "azure_location"{
     type = string
     description = "(Optional). Specifies the supported Azure location where the resource exists"
@@ -65,7 +60,7 @@ variable "resource"{
     }
 }
 
-#Varialbe for VNET resource
+#Variable used in VNET resource
 
 variable "vnet_name"{
     type            = string
@@ -75,8 +70,8 @@ variable "vnet_name"{
 
 variable "vnet_address_space"{
     type            = string
-     description    = "CIDR address space for the VNET"
-     default        = "10.10.0.0/16"
+    description    = "CIDR address space for the VNET"
+    default        = "10.10.0.0/16"
 }
 
 variable "vnet_subnet_name" {
