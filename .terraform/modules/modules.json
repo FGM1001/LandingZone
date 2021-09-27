@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"ResourceGroup3","Source":"./modules/Resource.Group","Dir":""},{"Key":"VNET_VirtualNetwork_hub","Source":"../modules/VNET_VirtualNetwork","Dir":""},{"Key":"","Source":"","Dir":"."},{"Key":"ResourceGroup1","Source":"./modules/Resource.Group","Dir":""},{"Key":"ResourceGroup2","Source":"./modules/Resource.Group","Dir":""}]}

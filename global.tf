@@ -1,6 +1,6 @@
 
-module "ResourceGroup"{
-    source = "../modules/Resource.Group"
+module "ResourceGroup1"{
+    source = "https://github.com/FGM1001/LandingZone/tree/master/modules/Resource_Group"
 
     company="wz"
     provider = "az"
@@ -8,13 +8,13 @@ module "ResourceGroup"{
     region ="uewe"
     service = "nethub"
     instancia = "01"
-    tag = {
+    tags = {
         Country = "ES"
     }
 }
 
-module "ResourceGroup"{
-    source = "../modules/Resource.Group"
+module "ResourceGroup2"{
+    source = "https://github.com/FGM1001/LandingZone/tree/master/modules/Resource_Group"
 
     company="wz"
     provider = "az"
@@ -22,13 +22,13 @@ module "ResourceGroup"{
     region ="uewe"
     service = "netspk"
     instancia = "01"
-    tag = {
+    tags = {
         Country = "ES"
     }
 }
 
-module "Resource_Group"{
-    source = "../modules/Resource.Group"
+module "ResourceGroup3"{
+    source = "https://github.com/FGM1001/LandingZone/tree/master/modules/Resource_Group"
 
     company="wz"
     provider = "az"
@@ -36,13 +36,13 @@ module "Resource_Group"{
     region ="uewe"
     service = "netspk"
     instancia = "02"
-    tag = {
+    tags = {
         Country = "ES"
     }
 }
 
-module "VNET_VirtualNetwork"{
-    source = "../modules/VNET_VirtualNetwork"
+module "VNET_VirtualNetwork_hub"{
+    source = "https://github.com/FGM1001/LandingZone/tree/master/modules/VNet_VirtualNetwork"
 
     # Settings for naming convention
     company="wz"
@@ -51,7 +51,7 @@ module "VNET_VirtualNetwork"{
     region ="uewe"
     service = "netspk"
     instancia = "01"
-        tag = {
+    tags = {
         Country = "ES"
     }
 
