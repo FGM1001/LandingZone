@@ -1,7 +1,13 @@
-
+variable "azure_location"{
+    type = string
+    description = "(Optional). Specifies the supported Azure location where the resource exists"
+    default = "westeurope"
+}
+ 
 variable "resource_group_name"{
     type = string
     description = "The name of the resource group where create the resources."
+    default = join("-",["RG",var.company,var.provider,var.environment,var.region,var.service,var.instancia])
 }
 
 variable "tags"{
@@ -42,7 +48,12 @@ variable "region"{
     default         = "euwe"
 }
 
-variable "services" {
+variable "service" {
     type            = string
     description     = "Service to which the resource belongs"
+}
+
+variable "instancia" {
+    type            = string
+    description     = "Number of instance"
 }
