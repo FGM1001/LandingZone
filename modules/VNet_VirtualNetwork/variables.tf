@@ -19,12 +19,12 @@ variable "company" {
     default = "wz"
 }
 
-variable "provider"{
+variable "cloudprovider"{
     type        = string
     description ="Cloud Provider"
     default     = "az"
     validation{
-        condition = contains(["aw","az","gc","oc"], var.environment)
+        condition = contains(["aw","az","gc","oc"], var.cloudprovider)
         error_message = "(Required) The provider specified must be one of the allowed values (aw, az, gc, oc)."
     }
 }
@@ -56,7 +56,7 @@ variable "resource"{
     default         =  "vnet"
     validation {
       condition     = contains(["nsg","exr","exg","vpng","vnet","nic","snet","rt","pip","fw","adf","stg","dl","adb","sqlser","sqldb","apn","azr","aml","kv","lga"], var.resource)
-      error_message = "The allowed values for resource type are: nsg,exr,exg,vpng,vnet,nic,snet,rt,pip,fw,adf,stg,dl,adb,sqlser,sqldb,apn,azr,aml,kv,lga "
+      error_message = "The allowed values for resource type are: nsg,exr,exg,vpng,vnet,nic,snet,rt,pip,fw,adf,stg,dl,adb,sqlser,sqldb,apn,azr,aml,kv,lga."
     }
 }
 
@@ -65,7 +65,7 @@ variable "resource"{
 variable "vnet_name"{
     type            = string
     description     = "Name of the vnet resource"
-    default         = join("-",[var.company,var.provider,var.environment,var.region,"net",var.resource])
+    default         = "vnet01"
 }
 
 variable "vnet_address_space"{

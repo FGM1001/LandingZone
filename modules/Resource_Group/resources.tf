@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "rgvnet01" {
-  name = var.resource_group_name
+  name =  join("-",["RG",var.company,var.provider,var.environment,var.region,var.service,var.instancia])
   location = var.azure_location
   tags = var.tags
 

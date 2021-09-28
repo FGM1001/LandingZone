@@ -1,6 +1,6 @@
 
 module "ResourceGroup1"{
-    source = "https://github.com/FGM1001/LandingZone/tree/master/modules/Resource_Group"
+    source = "../../modules/Resource_Group"
 
     company="wz"
     provider = "az"
@@ -14,7 +14,7 @@ module "ResourceGroup1"{
 }
 
 module "ResourceGroup2"{
-    source = "https://github.com/FGM1001/LandingZone/tree/master/modules/Resource_Group"
+    source = "../modules/VNet.Network_SecurityGroup"
 
     company="wz"
     provider = "az"
@@ -28,7 +28,7 @@ module "ResourceGroup2"{
 }
 
 module "ResourceGroup3"{
-    source = "https://github.com/FGM1001/LandingZone/tree/master/modules/Resource_Group"
+    source = "./modules/Resource_Group"
 
     company="wz"
     provider = "az"
@@ -42,7 +42,7 @@ module "ResourceGroup3"{
 }
 
 module "VNET_VirtualNetwork_hub"{
-    source = "https://github.com/FGM1001/LandingZone/tree/master/modules/VNet_VirtualNetwork"
+    source = "./VNet.Network_SecurityGroup"
 
     # Settings for naming convention
     company="wz"

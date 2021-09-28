@@ -7,7 +7,7 @@ variable "azure_location"{
 variable "resource_group_name"{
     type = string
     description = "The name of the resource group where create the resources."
-    default = join("-",["RG",var.company,var.provider,var.environment,var.region,var.service,var.instancia])
+    default="RG01"
 }
 
 variable "tags"{
@@ -22,12 +22,12 @@ variable "company" {
     default = "wz"
 }
 
-variable "provider"{
+variable "cloudprovider"{
     type        = string
     description ="Cloud Provider"
     default     = "az"
     validation{
-        condition = contains(["aw","az","gc","oc"], var.environment)
+        condition = contains(["aw","az","gc","oc"], var.cloudprovider)
         error_message = "(Required) The provider specified must be one of the allowed values (aw, az, gc, oc)."
     }
 }

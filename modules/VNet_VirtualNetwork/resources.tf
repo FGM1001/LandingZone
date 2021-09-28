@@ -9,7 +9,7 @@ resource "azurerm_virtual_network" "vnet"{
 
 
 resource "azurerm_subnet" "subnet" {
-    name                 = var.vnet_subnet_name
+    name                 = join("-",[var.company,var.cloudprovider,var.environment,var.region,"net",var.resource])
     resource_group_name  = azurerm_resource_group.rgvnet01
     virtual_network_name = azurerm_virtual_network.vnet
     address_prefixes       = var.vnet_subnet_address_space
