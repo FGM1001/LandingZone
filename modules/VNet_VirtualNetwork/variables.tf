@@ -1,6 +1,11 @@
 # Required Variables fot VNET   
 
 # Global variables to use with the resources
+
+variable "ResourceGroupName" {
+    type = string
+    description = "NAme of the resource group where the vnet resource will be deployed"
+}
 variable "azure_location"{
     type = string
     description = "(Optional). Specifies the supported Azure location where the resource exists"
@@ -34,7 +39,7 @@ variable "environment" {
   description       = "environment short name"
   default           = "dev"
   validation {
-    condition       = contains(["dev", "pre", "pro", "int"], var.environment)
+    condition       = contains(["dev", "pre", "prod", "int"], var.environment)
     error_message   = "(Required) The environment specified must be one of the allowed values (dev, pre, pro, int)."
   }
 }
@@ -45,9 +50,14 @@ variable "region"{
     default         = "euwe"
 }
 
-variable "services" {
+variable "service" {
     type            = string
     description     = "Service to which the resource belongs"
+}
+
+variable "instance" {
+    type = string
+    description = "Number of order of the resource or resource group"
 }
 
 variable "resource"{
@@ -62,11 +72,6 @@ variable "resource"{
 
 #Variable used in VNET resource
 
-variable "vnet_name"{
-    type            = string
-    description     = "Name of the vnet resource"
-    default         = "vnet01"
-}
 
 variable "vnet_address_space"{
     type            = string
@@ -80,7 +85,18 @@ variable "vnet_subnet_name" {
 }
 
  variable "vnet_subnet_address_space"{
-     type=string
-     description = "CIDR address space for the subnet"
-     default = "10.10.0.0/24"
+     type           = list(string)
+     description    = "CIDR address space for the subnet"
+     default        = ["10.10.0.0/24"]
  }
+
+
+#
+# Variables locales
+
+locals {
+    VNET_Name = "${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.resource)}-${upper(var.instance)}"
+
+}
+
+    
