@@ -1,4 +1,11 @@
 
+Connect-AzAccount
+
+get-azcontext -ListAvailable
+get-azcontext
+
+
+az login
 
 terraform init -upgrade 
 #terraform validate
@@ -7,4 +14,3 @@ terraform apply -auto-approve ".terraform/templates.tfplan"
 
 
 terraform destroy -auto-approve 
-az keyvault purge -n KVT-TERRA-FNIETO-DEV -l westeurope

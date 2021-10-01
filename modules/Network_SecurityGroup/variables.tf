@@ -1,13 +1,13 @@
+
+variable "resource_group_name"{
+    type = string
+    description = "Name of the resource group"
+}
+
 variable "azure_location"{
     type = string
     description = "(Optional). Specifies the supported Azure location where the resource exists"
     default = "westeurope"
-}
- 
-variable "tags"{
-  type        = map(any)
-  description = "(Optional) A mapping of tags which should be assigned to the resource."
-  default     = {}
 }
 
 
@@ -32,7 +32,7 @@ variable "environment" {
   description       = "environment short name"
   default           = "dev"
   validation {
-    condition       = contains(["dev", "pre", "pro", "int"], var.environment)
+    condition       = contains(["dev", "pre", "prod", "int"], var.environment)
     error_message   = "(Required) The environment specified must be one of the allowed values (dev, pre, pro, int)."
   }
 }
@@ -48,17 +48,24 @@ variable "service" {
     description     = "Service to which the resource belongs"
 }
 
-variable "instancia" {
-    type            = string
-    description     = "Number of instance"
+variable "instance" {
+    type = string
+    description = "Number of order of the resource or resource group"
 }
 
+variable "resource"{
+    type            = string
+    description     = "Allowed resource nomenclature"
+    default         =  "nsg"
+    validation {
+      condition     = contains(["nsg","exr","exg","vpng","vnet","nic","snet","rt","pip","fw","adf","stg","dl","adb","sqlser","sqldb","apn","azr","aml","kv","lga"], var.resource)
+      error_message = "The allowed values for resource type are: nsg,exr,exg,vpng,vnet,nic,snet,rt,pip,fw,adf,stg,dl,adb,sqlser,sqldb,apn,azr,aml,kv,lga."
+    }
+}
 
 #
-# Variables locales
+# Locals Variables
 
 locals {
-    #Resource_Group_Name = join("-",["RG",var.company,var.cloudprovider,var.environment,var.region,var.service,var.instancia])
-    Resource_Group_Name = "RG-${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.instancia)}"
-
+    NSG_Name = "${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.resource)}-${upper(var.instance)}"
 }
