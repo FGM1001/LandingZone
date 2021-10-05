@@ -1,4 +1,4 @@
-output "Name" {
-    value = azurerm_resource_group.rgvnet01.name
+output "name" {
+    value = azurerm_resource_group.rg.name
 }
 

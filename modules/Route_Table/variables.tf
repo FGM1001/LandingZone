@@ -1,18 +1,18 @@
-############################################################################
-# Route Table
-# Variables
-
-variable "resource_group_name"{
+variable "ResourceGroupName" {
     type = string
-    description = "Name of the resource group"
+    description = "NAme of the resource group where the vnet resource will be deployed"
 }
-
 variable "azure_location"{
     type = string
     description = "(Optional). Specifies the supported Azure location where the resource exists"
     default = "westeurope"
 }
 
+variable "tags"{
+  type        = map(any)
+  description = "(Optional) A mapping of tags which should be assigned to the resource."
+  default     = {}
+}
 
 variable "company" {
     type        = string
@@ -59,28 +59,30 @@ variable "instance" {
 variable "resource"{
     type            = string
     description     = "Allowed resource nomenclature"
-    default         =  "nsg"
+    default         =  "rt"
     validation {
       condition     = contains(["nsg","exr","exg","vpng","vnet","nic","snet","rt","pip","fw","adf","stg","dl","adb","sqlser","sqldb","apn","azr","aml","kv","lga"], var.resource)
       error_message = "The allowed values for resource type are: nsg,exr,exg,vpng,vnet,nic,snet,rt,pip,fw,adf,stg,dl,adb,sqlser,sqldb,apn,azr,aml,kv,lga."
     }
 }
 
-variable "tags"{
-  type        = map(any)
-  description = "(Optional) A mapping of tags which should be assigned to the resource."
-  default     = {}
+
+variable "disable_bgp"{
+    type = bool
+    description = "(Optional) Boolean flag which controls propagation of routes learned by BGP on that route table. True means disable"
+    default = true
+    validation {
+        condition = can(regex("^([t][r][u][e]|[f][a][l][s][e])$",var.disable_bgp))
+        error_message = "The boolean_variable must be either true or false."
+    }
 }
 
-variable "subnetid"{
-    type = string
-    description = "If you want to associate the NSG with a subnet in the construction time "
-    default = "no"
-}
 
 #
-# Locals Variables
+# Variables locales
+
 
 locals {
-    NSG_Name = "${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.resource)}-${upper(var.instance)}"
+    Name = "${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.resource)}-${upper(var.instance)}"
+
 }
