@@ -14,3 +14,6 @@ terraform apply -auto-approve ".terraform/templates.tfplan"
 
 
 terraform destroy -auto-approve 
+
+
+$VNET = Get-AzVirtualNetwork -name "WZ-AZ-PROD-EUWE-NETHUB-01"

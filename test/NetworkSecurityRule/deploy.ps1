@@ -1,7 +1,10 @@
-# Script para las pruebas de despliegue de la infraestructura
+
+Connect-AzAccount
+
+get-azcontext -ListAvailable
+get-azcontext
 
 
-az account clear
 az login
 
 terraform init -upgrade
@@ -11,3 +14,6 @@ terraform apply -auto-approve ".terraform/templates.tfplan"
 
 
 terraform destroy -auto-approve 
+
+
+$VNET = Get-AzVirtualNetwork -name "WZ-AZ-PROD-EUWE-NETHUB-01"
