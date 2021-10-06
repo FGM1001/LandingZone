@@ -1,5 +1,4 @@
-# Required Variables fot VNET   
-
+# Required Variables fot Local Network Gateway 
 # Global variables to use with the resources
 
 variable "ResourceGroupName" {
@@ -63,39 +62,36 @@ variable "instance" {
 variable "resource"{
     type            = string
     description     = "Allowed resource nomenclature"
-    default         =  "vnet"
+    default         =  "lng"
     validation {
-      condition     = contains(["nsg","exr","exg","vpng","vnet","nic","snet","rt","pip","fw","adf","stg","dl","adb","sqlser","sqldb","apn","azr","aml","kv","lga"], var.resource)
+      condition     = contains(["nsg","exr","exg","vpng","vnet","nic","snet","rt","pip","fw","adf","stg","dl","adb","sqlser","sqldb","apn","azr","aml","kv","lga","lng"], var.resource)
       error_message = "The allowed values for resource type are: nsg,exr,exg,vpng,vnet,nic,snet,rt,pip,fw,adf,stg,dl,adb,sqlser,sqldb,apn,azr,aml,kv,lga."
     }
 }
 
-#Variable used in VNET resource
+#
+# Variables especificas para el recursos Local Network Gateway
 
-
-variable "vnet_address_space"{
-    type            = string
-    description    = "CIDR address space for the VNET"
-    default        = "10.10.0.0/16"
+variable "address_space"{
+    type = string
+    description = "The list of string CIDRs representing the address spaces the gateway exposes"
 }
 
-variable "vnet_subnet_name" {
-    type            = string
-    description     = "(Required) Subnet Name."
+variable "gateway_address" {
+    type = string
+    description = "The gateway IP address to connect with"
 }
 
- variable "vnet_subnet_address_space"{
-     type           = list(string)
-     description    = "CIDR address space for the subnet"
-     default        = ["10.10.0.0/24"]
- }
+variable "gateway_fqdn" {
+    type = string
+    description = "The gateway FQDN to connect with"
+    default = "None"
+}
 
 
 #
 # Variables locales
 
 locals {
-    VNET_Name = "${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.resource)}-${upper(var.instance)}"
-
+    name = "${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.resource)}-${upper(var.instance)}"
 }
-

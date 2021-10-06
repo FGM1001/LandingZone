@@ -63,39 +63,30 @@ variable "instance" {
 variable "resource"{
     type            = string
     description     = "Allowed resource nomenclature"
-    default         =  "vnet"
+    default         =  "lb"
     validation {
-      condition     = contains(["nsg","exr","exg","vpng","vnet","nic","snet","rt","pip","fw","adf","stg","dl","adb","sqlser","sqldb","apn","azr","aml","kv","lga"], var.resource)
+      condition     = contains(["nsg","exr","exg","vpng","vnet","nic","snet","rt","pip","fw","adf","stg","dl","adb","sqlser","sqldb","apn","azr","aml","kv","lga","lng","ilb"], var.resource)
       error_message = "The allowed values for resource type are: nsg,exr,exg,vpng,vnet,nic,snet,rt,pip,fw,adf,stg,dl,adb,sqlser,sqldb,apn,azr,aml,kv,lga."
     }
 }
 
-#Variable used in VNET resource
+#
+# Variables del recurso Load Balancer
 
-
-variable "vnet_address_space"{
-    type            = string
-    description    = "CIDR address space for the VNET"
-    default        = "10.10.0.0/16"
+variable "Public_IP_Name" {
+    type =  string
+    description = "Name of the public IP"
 }
 
-variable "vnet_subnet_name" {
-    type            = string
-    description     = "(Required) Subnet Name."
+variable "Public_IP_ID" {
+    type = string
+    description = "ID of the Public IP used in the ILB"
 }
-
- variable "vnet_subnet_address_space"{
-     type           = list(string)
-     description    = "CIDR address space for the subnet"
-     default        = ["10.10.0.0/24"]
- }
-
 
 #
 # Variables locales
 
 locals {
-    VNET_Name = "${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.resource)}-${upper(var.instance)}"
+    name = "${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.resource)}-${upper(var.instance)}"
 
 }
-

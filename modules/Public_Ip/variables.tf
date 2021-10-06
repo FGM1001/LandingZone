@@ -1,7 +1,3 @@
-# Required Variables fot VNET   
-
-# Global variables to use with the resources
-
 variable "ResourceGroupName" {
     type = string
     description = "NAme of the resource group where the vnet resource will be deployed"
@@ -63,39 +59,70 @@ variable "instance" {
 variable "resource"{
     type            = string
     description     = "Allowed resource nomenclature"
-    default         =  "vnet"
+    default         =  "pip"
     validation {
       condition     = contains(["nsg","exr","exg","vpng","vnet","nic","snet","rt","pip","fw","adf","stg","dl","adb","sqlser","sqldb","apn","azr","aml","kv","lga"], var.resource)
       error_message = "The allowed values for resource type are: nsg,exr,exg,vpng,vnet,nic,snet,rt,pip,fw,adf,stg,dl,adb,sqlser,sqldb,apn,azr,aml,kv,lga."
     }
 }
 
-#Variable used in VNET resource
 
+# Variables del recursos PiP
 
-variable "vnet_address_space"{
-    type            = string
-    description    = "CIDR address space for the VNET"
-    default        = "10.10.0.0/16"
+variable "sku" {
+    type = string
+    description = "The SKU of the Public IP. Accepted values are Basic and Standard. Defaults to Basic."
+    default = "Basic"
+    validation {
+      condition = contains(["Basic","Standard"],var.sku)
+      error_message = "Accepted values are Basic and Standard."
+    }
+  
 }
 
-variable "vnet_subnet_name" {
-    type            = string
-    description     = "(Required) Subnet Name."
+variable "sku_tier"{
+    type = string 
+    description = "The SKU Tier that should be used for the Public IP. Default to Regional"
+    default = "Regional"
+    validation {
+      condition = contains(["Regional","Global"],var.sku_tier)
+      error_message = "Accepted values are Regional or Global."
+    }
 }
 
- variable "vnet_subnet_address_space"{
-     type           = list(string)
-     description    = "CIDR address space for the subnet"
-     default        = ["10.10.0.0/24"]
- }
+variable "allocation_method" {
+    type = string
+    description = "Defines the allocation method for this IP address. Possible values are Static or Dynamic. Default value is Static"
+    default = "Static"
+    validation {
+      condition = contains(["Static","Dynamic"],var.allocation_method)
+      error_message = "Possible values are Static or Dynamic."
+    }
+}
 
+variable "availability_zone" {
+    type = string
+    description = "The availability zone to allocate the Public IP in. "
+    default = "Zone_Redundant"
+    validation {
+      condition = contains(["Zone-Redundant","1","2","3","No-Zone"],var.availability_zone)
+      error_message = "Allowed values are Zone-Redundant, 1, 2, 3, No-Zone."
+    }
+}
 
-#
-# Variables locales
+variable "ip_version" {
+    type = string
+    description = "The IP Version to use, IPv6 or IPv4."
+    default = "IPv4"
+    validation {
+      condition = contains(["IPv6","IPv4"],var.ip_version)
+      error_message = "Allowed values are IPv4 or IPv6."
+    }
+}
 
+# Variables Locales
 locals {
-    VNET_Name = "${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.resource)}-${upper(var.instance)}"
+    Name = "${upper(var.company)}-${upper(var.cloudprovider)}-${upper(var.environment)}-${upper(var.region)}-${upper(var.service)}-${upper(var.resource)}-${upper(var.instance)}"
 
 }
 
